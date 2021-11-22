@@ -13,5 +13,7 @@ namespace shop.Core.ServiceInterface
         Task<Product> Delete(Guid id);
 
         Task<Product> Add(ProductDto dto);
+
+        Task<Product> Edit(Guid id);
     }
 }

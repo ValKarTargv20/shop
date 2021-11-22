@@ -52,7 +52,7 @@ namespace shop.Controllers
         public IActionResult Add() 
         {
             ProductViewModel model = new ProductViewModel();
-            return View("View", model);
+            return View("Edit", model);
         }
         [HttpPost]
         public async Task<IActionResult> Add(ProductViewModel model)
@@ -73,6 +73,31 @@ namespace shop.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var product = await _productService.Edit(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            var model = new ProductViewModel();
+
+            var dto = new ProductDto()
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Name = model.Name,
+                Amount = model.Amount,
+                Price = model.Price,
+                ModifiedAt = model.ModifiedAt,
+                CreatedAt = model.CreatedAt
+            };
+
+            return View(model);
         }
     }
 }
