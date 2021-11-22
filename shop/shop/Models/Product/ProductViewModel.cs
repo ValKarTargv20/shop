@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace shop.Models.Product
 {
-    public class ProductListViewModel
+    public class ProductViewModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

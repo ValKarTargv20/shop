@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using shop.Data;
 using Microsoft.EntityFrameworkCore;
+using shop.Core.ServiceInterface;
+using shop.ApplicationServices.Services;
 
 namespace shop
 {
@@ -28,6 +30,8 @@ namespace shop
             services.AddControllersWithViews();
             services.AddDbContext<ShopDbContext>(options =>
             options.UseSqlServer(_config["DefaultConnection"]));
+
+            services.AddScoped<IProductServices, ProductServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

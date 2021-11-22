@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using shop.Core.Dtos;
+using shop.Core.ServiceInterface;
 using shop.Data;
 using shop.Models.Product;
 using System;
@@ -11,13 +13,15 @@ namespace shop.Controllers
     public class ProductController : Controller
     {
         private readonly ShopDbContext _context;
+        private readonly IProductServices _productService;
         public ProductController
             (
             ShopDbContext context,
-            IProduct
+            IProductServices productService
             )
         {
             _context = context;
+            _productService = productService;
         }
         public IActionResult Index()
         {
@@ -28,16 +32,47 @@ namespace shop.Controllers
                     Name= x.Name,
                     Price= x.Price,
                     Amount= x.Amount,
-                    Desctiption= x.Desctiption,
+                    Description= x.Description,
 
                 });
             return View(result);
         }
 
-        public async Task<IActionResult> Delete(Guid id) 
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            return RedirectToAction(nameof(Index),product)
-        
+            var product = await _productService.Delete(id);
+            if (product == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index), product);
+        }
+        [HttpGet]
+        public IActionResult Add() 
+        {
+            ProductViewModel model = new ProductViewModel();
+            return View("View", model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(ProductViewModel model)
+        {
+            var dto =new ProductDto()
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Name = model.Name,
+                Amount = model.Amount,
+                Price = model.Price,
+                ModifiedAt = model.ModifiedAt,
+                CreatedAt = model.CreatedAt
+            };
+            var result = await _productService.Add(dto);
+            if(result==null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction("Index");
         }
     }
 }
