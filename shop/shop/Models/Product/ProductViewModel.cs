@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using shop.Models.Files;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,5 +16,8 @@ namespace shop.Models.Product
         public int Amount { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
+        public List<IFormFile> Files { get; set; } //если удалить Лист, то добавляться будет 1 файл
+        public List<ExistingFilePathsViewModel> ExistingFilePaths { get; set; } = new List<ExistingFilePathsViewModel>();
+
     }
 }
