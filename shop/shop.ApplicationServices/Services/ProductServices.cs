@@ -13,11 +13,12 @@ namespace shop.ApplicationServices.Services
     public class ProductServices : IProductServices
     {
         private readonly ShopDbContext _context;
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
+
         public ProductServices
             (
             ShopDbContext context,
-            IHostingEnvironment env
+            IWebHostEnvironment env
             )
         {
             _context = context;
@@ -36,7 +37,7 @@ namespace shop.ApplicationServices.Services
         public async Task<Product> Add(ProductDto dto)
         {
             Product product = new Product();
-            product.Id = dto.Id;
+            product.Id = Guid.NewGuid();
             product.Description = dto.Description;
             product.Name = dto.Name;
             product.Amount = dto.Amount;
@@ -63,7 +64,7 @@ namespace shop.ApplicationServices.Services
         {
             Product product = new Product();
 
-            product.Id = dto.Id;
+            product.Id = Guid.NewGuid();
             product.Description = dto.Description;
             product.Name = dto.Name;
             product.Amount = dto.Amount;
@@ -82,9 +83,14 @@ namespace shop.ApplicationServices.Services
             string uniqueFileName = null;
             if(dto.Files != null && dto.Files.Count > 0)
             {
+                if (!Directory.Exists(_env.WebRootPath + "\\multipleFileUpload\\"))
+                {
+                    Directory.CreateDirectory(_env.WebRootPath + "\\multipleFileUpload\\");
+                }
+
                 foreach (var photo in dto.Files)
                 {
-                    string uploadsFolder = Path.Combine(_env.ContentRootPath, "multipleFileUpload");
+                    sstring uploadsFolder = Path.Combine(_env.WebRootPath, "multipleFileUpload");
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
