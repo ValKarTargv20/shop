@@ -27,6 +27,7 @@ namespace shop.ApplicationServices.Services
         public async Task<Product> Delete(Guid id)
         {
             var productId = await _context.Product
+                .Include(x => x.ExistingFilePaths)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             _context.Product.Remove(productId);
@@ -78,6 +79,17 @@ namespace shop.ApplicationServices.Services
             return product;
         }
 
+        public async Task<ExistingFilePath> RemoveImage(ExistingFilePathDto dto)
+        {
+            var imageId = await _context.ExistingFilePath
+                .FirstOrDefaultAsync(x => x.Id == dto.PhotoId);
+
+            _context.ExistingFilePath.Remove(imageId);
+            await _context.SaveChangesAsync();
+
+            return imageId;
+        }
+
         public string ProcessUploadFile(ProductDto dto, Product product)
         {
             string uniqueFileName = null;
@@ -90,7 +102,7 @@ namespace shop.ApplicationServices.Services
 
                 foreach (var photo in dto.Files)
                 {
-                    sstring uploadsFolder = Path.Combine(_env.WebRootPath, "multipleFileUpload");
+                    string uploadsFolder = Path.Combine(_env.WebRootPath, "multipleFileUpload");
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 

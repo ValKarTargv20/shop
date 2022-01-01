@@ -17,7 +17,7 @@ namespace shop.Models.Product
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
         public List<IFormFile> Files { get; set; } //если удалить Лист, то добавляться будет 1 файл
-        public List<ExistingFilePathsViewModel> ExistingFilePaths { get; set; } = new List<ExistingFilePathsViewModel>();
+        public List<ExistingFilePathViewModel> ExistingFilePaths { get; set; } = new List<ExistingFilePathViewModel>();
 
     }
 }
