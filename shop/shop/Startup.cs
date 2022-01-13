@@ -1,13 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using shop.Data;
 using Microsoft.EntityFrameworkCore;
 using shop.Core.ServiceInterface;
@@ -28,10 +23,14 @@ namespace shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<ShopDbContext>(options =>
             options.UseSqlServer(_config["DefaultConnection"]));
 
-            services.AddScoped<IProductServices, ProductServices>();
+            services.AddScoped<IProductService, ProductServices>();
+            services.AddScoped<IFileServices, FileServices>();
+
+            services.AddScoped<ISpaceshipService, SpaceshipServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

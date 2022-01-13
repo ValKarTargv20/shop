@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using shop.Core.Domain;
 
 namespace shop.Data
@@ -13,6 +8,7 @@ namespace shop.Data
         public ShopDbContext(DbContextOptions<ShopDbContext> options)
             : base(options) { }
         public DbSet<Product> Product { get; set; }
-        public DbSet<ExistingFilePath> ExistingFilePath { get; set; }
+        public DbSet<ExistingFilePath> ExistingFilePaths { get; set; }
+        public DbSet<Spaceship> Spaceship { get; set; }
     }
 }

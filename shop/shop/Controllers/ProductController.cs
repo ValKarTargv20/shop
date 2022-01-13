@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using shop.Core.Dtos;
 using shop.Core.ServiceInterface;
 using shop.Data;
+using shop.Models.Files;
 using shop.Models.Product;
 using System;
 using System.Collections.Generic;
@@ -13,15 +15,18 @@ namespace shop.Controllers
     public class ProductController : Controller
     {
         private readonly ShopDbContext _context;
-        private readonly IProductServices _productService;
+        private readonly IProductService _productService;
+        private readonly IFileServices _fileService;
         public ProductController
             (
             ShopDbContext context,
-            IProductServices productService
+            IProductService productService,
+            IFileServices fileService
             )
         {
             _context = context;
             _productService = productService;
+            _fileService = fileService;
         }
         public IActionResult Index()
         {
@@ -29,10 +34,10 @@ namespace shop.Controllers
                 .Select(x => new ProductListViewModel
                 {
                     Id = x.Id,
-                    Name= x.Name,
-                    Price= x.Price,
-                    Amount= x.Amount,
-                    Description= x.Description,
+                    Name = x.Name,
+                    Price = x.Price,
+                    Amount = x.Amount,
+                    Description = x.Description,
 
                 });
             return View(result);
@@ -49,7 +54,7 @@ namespace shop.Controllers
             return RedirectToAction(nameof(Index), product);
         }
         [HttpGet]
-        public IActionResult Add() 
+        public IActionResult Add()
         {
             ProductViewModel model = new ProductViewModel();
             return View("Edit", model);
@@ -57,7 +62,7 @@ namespace shop.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ProductViewModel model)
         {
-            var dto =new ProductDto()
+            var dto = new ProductDto()
             {
                 Id = model.Id,
                 Description = model.Description,
@@ -65,10 +70,18 @@ namespace shop.Controllers
                 Amount = model.Amount,
                 Price = model.Price,
                 ModifiedAt = model.ModifiedAt,
-                CreatedAt = model.CreatedAt
+                CreatedAt = model.CreatedAt,
+                Files = model.Files,
+                ExistingFilePaths = model.ExistingFilePaths
+                    .Select(x => new ExistingFilePathDto
+                    {
+                        PhotoId = x.PhotoId,
+                        FilePath = x.FilePath,
+                        ProductId = x.ProductId
+                    }).ToArray()
             };
             var result = await _productService.Add(dto);
-            if(result==null)
+            if (result == null)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -84,6 +97,16 @@ namespace shop.Controllers
             {
                 return NotFound();
             }
+
+            var photos = await _context.ExistingFilePaths
+                .Where(x => x.ProductId == id)
+                .Select(y => new ExistingFilePathViewModel
+                {
+                    FilePath = y.FilePath,
+                    PhotoId = y.Id
+                })
+                .ToArrayAsync();
+
             var model = new ProductViewModel();
 
             model.Id = product.Id;
@@ -114,8 +137,8 @@ namespace shop.Controllers
                 .Select(x => new ExistingFilePathDto
                 {
                     PhotoId = x.PhotoId,
-                    FilePath= x.FilePath,
-                    ProductId= x.ProductId
+                    FilePath = x.FilePath,
+                    ProductId = x.ProductId
                 }).ToArray()
             };
             var result = await _productService.Update(dto);
@@ -125,6 +148,20 @@ namespace shop.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index), model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveImage(ExistingFilePathViewModel model)
+        {
+            var dto = new ExistingFilePathDto()
+            {
+                FilePath = model.FilePath
+            };
+            var image = await _fileService.RemoveImage(dto);
+            if (image == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
