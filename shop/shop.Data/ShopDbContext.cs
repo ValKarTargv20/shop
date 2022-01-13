@@ -8,7 +8,8 @@ namespace shop.Data
         public ShopDbContext(DbContextOptions<ShopDbContext> options)
             : base(options) { }
         public DbSet<Product> Product { get; set; }
-        public DbSet<ExistingFilePath> ExistingFilePaths { get; set; }
+        public DbSet<ExistingFilePath> ExistingFilePath { get; set; }
         public DbSet<Spaceship> Spaceship { get; set; }
+        public DbSet<Car> Car { get; set; }
     }
 }

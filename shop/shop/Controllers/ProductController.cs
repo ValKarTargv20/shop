@@ -98,7 +98,7 @@ namespace shop.Controllers
                 return NotFound();
             }
 
-            var photos = await _context.ExistingFilePaths
+            var photos = await _context.ExistingFilePath
                 .Where(x => x.ProductId == id)
                 .Select(y => new ExistingFilePathViewModel
                 {
