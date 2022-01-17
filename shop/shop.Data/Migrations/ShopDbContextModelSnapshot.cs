@@ -19,6 +19,41 @@ namespace shop.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("shop.Core.Domain.Car", b =>
+                {
+                    b.Property<Guid?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Engine")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Mark")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("ProdusedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Car");
+                });
+
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
                 {
                     b.Property<Guid?>("Id")
@@ -35,7 +70,7 @@ namespace shop.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ExistingFilePaths");
+                    b.ToTable("ExistingFilePath");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.Product", b =>
@@ -91,8 +126,8 @@ namespace shop.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -105,13 +140,13 @@ namespace shop.Data.Migrations
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
                 {
                     b.HasOne("shop.Core.Domain.Product", null)
-                        .WithMany("ExistingFilePaths")
+                        .WithMany("ExistingFilePath")
                         .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.Product", b =>
                 {
-                    b.Navigation("ExistingFilePaths");
+                    b.Navigation("ExistingFilePath");
                 });
 #pragma warning restore 612, 618
         }

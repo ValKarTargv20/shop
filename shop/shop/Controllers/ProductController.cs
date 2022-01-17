@@ -72,7 +72,7 @@ namespace shop.Controllers
                 ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
                 Files = model.Files,
-                ExistingFilePaths = model.ExistingFilePaths
+                ExistingFilePath = model.ExistingFilePath
                     .Select(x => new ExistingFilePathDto
                     {
                         PhotoId = x.PhotoId,
@@ -133,7 +133,7 @@ namespace shop.Controllers
                 ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
                 Files = model.Files,
-                ExistingFilePaths = model.ExistingFilePaths
+                ExistingFilePath = model.ExistingFilePath
                 .Select(x => new ExistingFilePathDto
                 {
                     PhotoId = x.PhotoId,

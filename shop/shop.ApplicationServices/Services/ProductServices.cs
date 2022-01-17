@@ -36,7 +36,7 @@ namespace shop.ApplicationServices.Services
                 .ToArrayAsync();
 
             var productId = await _context.Product
-                .Include(x => x.ExistingFilePaths)
+                .Include(x => x.ExistingFilePath)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             await _file.RemoveImages(photos);
