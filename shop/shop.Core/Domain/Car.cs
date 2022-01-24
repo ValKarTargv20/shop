@@ -12,7 +12,7 @@ namespace shop.Core.Domain
         public string Brand { get; set; }
         public string Mark { get; set; }
         public double Engine { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public int Amount { get; set; }
         public DateTime ProdusedAt { get; set; }
         public DateTime CreatedAt { get; set; }

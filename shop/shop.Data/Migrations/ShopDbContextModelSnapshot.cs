@@ -43,8 +43,8 @@ namespace shop.Data.Migrations
                     b.Property<DateTime>("ModifedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("ProdusedAt")
                         .HasColumnType("datetime2");
@@ -70,7 +70,27 @@ namespace shop.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ExistingFilePath");
+                    b.ToTable("ExistingFilePaths");
+                });
+
+            modelBuilder.Entity("shop.Core.Domain.FileToDatabase", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("SpaceshipId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FileToDatabase");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.Product", b =>
@@ -104,7 +124,7 @@ namespace shop.Data.Migrations
 
             modelBuilder.Entity("shop.Core.Domain.Spaceship", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -126,8 +146,8 @@ namespace shop.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");

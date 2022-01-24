@@ -25,7 +25,7 @@ namespace shop.ApplicationServices.Services
         }
         public async Task<Product> Delete(Guid id)
         {
-            var photos = await _context.ExistingFilePath
+            var photos = await _context.ExistingFilePaths
                 .Where(x => x.ProductId == id)
                 .Select(y => new ExistingFilePathDto
                 {
