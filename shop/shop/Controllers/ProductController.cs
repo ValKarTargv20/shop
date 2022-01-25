@@ -71,7 +71,7 @@ namespace shop.Controllers
                 ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
                 Files = model.Files,
-                ExistingFilePath = model.ExistingFilePath
+                ExistingFilePaths = model.ExistingFilePaths
                     .Select(x => new ExistingFilePathDto
                     {
                         PhotoId = x.PhotoId,
@@ -97,7 +97,7 @@ namespace shop.Controllers
                 return NotFound();
             }
 
-            var photos = await _context.ExistingFilePaths
+            var photos = await _context.ExistingFilePath
                 .Where(x => x.ProductId == id)
                 .Select(y => new ExistingFilePathViewModel
                 {
@@ -115,6 +115,7 @@ namespace shop.Controllers
             model.Price = product.Price;
             model.ModifiedAt = product.ModifiedAt;
             model.CreatedAt = product.CreatedAt;
+            model.ExistingFilePaths.AddRange(photos);
 
             return View(model);
         }
@@ -132,7 +133,7 @@ namespace shop.Controllers
                 ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
                 Files = model.Files,
-                ExistingFilePath = model.ExistingFilePath
+                ExistingFilePaths = model.ExistingFilePaths
                 .Select(x => new ExistingFilePathDto
                 {
                     PhotoId = x.PhotoId,

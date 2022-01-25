@@ -17,15 +17,16 @@ namespace shop.ApplicationServices.Services
         public ProductServices
             (
             ShopDbContext context,
-            IFileServices file
+            IFileServices fileService
             )
         {
             _context = context;
-            _file = file;
+            _file = fileService;
         }
+        
         public async Task<Product> Delete(Guid id)
         {
-            var photos = await _context.ExistingFilePaths
+            var photos = await _context.ExistingFilePath
                 .Where(x => x.ProductId == id)
                 .Select(y => new ExistingFilePathDto
                 {
@@ -36,7 +37,7 @@ namespace shop.ApplicationServices.Services
                 .ToArrayAsync();
 
             var productId = await _context.Product
-                .Include(x => x.ExistingFilePath)
+                .Include(x => x.ExistingFilePaths)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             await _file.RemoveImages(photos);
@@ -76,7 +77,7 @@ namespace shop.ApplicationServices.Services
         {
             Product product = new Product();
 
-            product.Id = Guid.NewGuid();
+            product.Id = dto.Id;
             product.Description = dto.Description;
             product.Name = dto.Name;
             product.Amount = dto.Amount;

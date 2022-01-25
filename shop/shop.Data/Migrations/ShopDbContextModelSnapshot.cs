@@ -70,7 +70,7 @@ namespace shop.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ExistingFilePaths");
+                    b.ToTable("ExistingFilePath");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.FileToDatabase", b =>
@@ -160,13 +160,13 @@ namespace shop.Data.Migrations
             modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
                 {
                     b.HasOne("shop.Core.Domain.Product", null)
-                        .WithMany("ExistingFilePath")
+                        .WithMany("ExistingFilePaths")
                         .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("shop.Core.Domain.Product", b =>
                 {
-                    b.Navigation("ExistingFilePath");
+                    b.Navigation("ExistingFilePaths");
                 });
 #pragma warning restore 612, 618
         }

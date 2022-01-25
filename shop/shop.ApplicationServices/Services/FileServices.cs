@@ -28,14 +28,14 @@ namespace shop.ApplicationServices.Services
 
         public async Task<ExistingFilePath> RemoveImage(ExistingFilePathDto dto)
         {
-            var imageId = await _context.ExistingFilePaths
+            var imageId = await _context.ExistingFilePath
                 .FirstOrDefaultAsync(x => x.FilePath == dto.FilePath);
 
             string photoPath = _env.WebRootPath + "\\multipleFileUpload\\" + dto.FilePath;
 
             File.Delete(photoPath);
 
-            _context.ExistingFilePaths.Remove(imageId);
+            _context.ExistingFilePath.Remove(imageId);
             await _context.SaveChangesAsync();
 
             return imageId;
@@ -45,14 +45,14 @@ namespace shop.ApplicationServices.Services
         {
             foreach (var dtos in dto)
             {
-                var fileId = await _context.ExistingFilePaths
+                var fileId = await _context.ExistingFilePath
                     .FirstOrDefaultAsync(x => x.FilePath == dtos.FilePath);
 
                 string photoPath = _env.WebRootPath + "\\multipleFileUpload\\" + dtos.FilePath;
 
                 File.Delete(photoPath);
 
-                _context.ExistingFilePaths.Remove(fileId);
+                _context.ExistingFilePath.Remove(fileId);
                 await _context.SaveChangesAsync();
             }
             return null;
@@ -86,7 +86,7 @@ namespace shop.ApplicationServices.Services
                             ProductId = product.Id
                         };
 
-                        _context.ExistingFilePaths.Add(paths);
+                        _context.ExistingFilePath.Add(paths);
                     }
                 }
             }
