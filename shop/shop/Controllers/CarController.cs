@@ -40,6 +40,7 @@ namespace shop.Controllers
                 Engine = x.Engine,
                 Price = x.Price,
                 Amount = x.Amount,
+                ProdusedAt=x.ProdusedAt,
                 });
 
             return View();
