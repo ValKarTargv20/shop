@@ -19,7 +19,7 @@ namespace shop.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("shop.Core.Domain.Product", b =>
+            modelBuilder.Entity("shop.Core.Domain.Car", b =>
                 {
                     b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
@@ -28,24 +28,61 @@ namespace shop.Data.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
+                    b.Property<double>("Engine")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Mark")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime>("ModifedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<DateTime>("ProdusedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("Car");
+                });
+
+            modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("ExistingFilePath");
+                });
+
+            modelBuilder.Entity("shop.Core.Domain.ExistingFilePath", b =>
+                {
+                    b.HasOne("shop.Core.Domain.Car", null)
+                        .WithMany("ExistingFilePaths")
+                        .HasForeignKey("CarId");
+                });
+
+            modelBuilder.Entity("shop.Core.Domain.Car", b =>
+                {
+                    b.Navigation("ExistingFilePaths");
                 });
 #pragma warning restore 612, 618
         }

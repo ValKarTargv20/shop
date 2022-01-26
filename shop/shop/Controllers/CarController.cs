@@ -135,6 +135,7 @@ namespace shop.Controllers
                 Mark = model.Mark,
                 Engine = model.Engine,
                 Price = model.Price,
+                Amount = model.Amount,
                 ProdusedAt = model.ProdusedAt,
                 ModifedAt = model.ModifedAt,
                 CreatedAt = model.CreatedAt,
