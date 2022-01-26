@@ -37,7 +37,7 @@ namespace shop.ApplicationServices.Services
                 })
                 .ToArrayAsync();
 
-            var CarId = await _context.Car
+            var carId = await _context.Car
                 .Include(x => x.ExistingFilePaths)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -47,18 +47,53 @@ namespace shop.ApplicationServices.Services
 
             return carId;
         }
-        public Task<Car> Add(CarDto dto)
+        public async Task<Car> Add(CarDto dto)
         {
+            Car car = new Car();
 
+            car.Id = Guid.NewGuid();
+            car.Brand = dto.Brand;
+            car.Mark = dto.Mark;
+            car.Engine = dto.Engine;
+            car.Price = dto.Price;
+            car.Amount = dto.Amount;
+            car.ProdusedAt = dto.ProdusedAt;
+            car.ModifedAt = dto.ModifedAt;
+            car.CreatedAt = dto.CreatedAt;
+            _file.ProcessUploadFile(dto, car);
+
+            await _context.Car.AddAsync(car);
+            await _context.SaveChangesAsync();
+
+            return car;
         }
-        public Task<Car> Edit(Guid id)
+        public async Task<Car> Edit(Guid id)
         {
-            
+            var result = await _context.Car
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
         }
 
-        public Task<Car> Update(CarDto dto)
+        public async Task<Car> Update(CarDto dto)
         {
-            
+            Car car = new Car();
+
+            car.Id = dto.Id;
+            car.Brand = dto.Brand;
+            car.Mark = dto.Mark;
+            car.Engine = dto.Engine;
+            car.Price = dto.Price;
+            car.Amount = dto.Amount;
+            car.ProdusedAt = dto.ProdusedAt;
+            car.ModifedAt = dto.ModifedAt;
+            car.CreatedAt = dto.CreatedAt;
+            _file.ProcessUploadFile(dto, car);
+
+            _context.Car.Update(car);
+            await _context.SaveChangesAsync();
+
+            return car;
         }
     }
 }

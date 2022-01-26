@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace shop.Core.Dtos
 {
-    class CarDto
+    public class CarDto
     {
         public Guid? Id { get; set; }
         public string Brand { get; set; }
