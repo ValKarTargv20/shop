@@ -16,6 +16,6 @@ namespace shop.Models.Car
         public int Amount { get; set; }
         public DateTime ProdusedAt { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime ModifedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
     }
 }

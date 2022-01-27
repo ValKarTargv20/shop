@@ -15,7 +15,7 @@ namespace shop.Models.Car
         public int Amount { get; set; }
         public DateTime ProdusedAt { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime ModifedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public List<IFormFile> Files { get; set; }
         public List<ExistingFilePathViewModel> ExistingFilePaths { get; set; } = new List<ExistingFilePathViewModel>();
     }

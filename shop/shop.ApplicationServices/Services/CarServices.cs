@@ -58,7 +58,7 @@ namespace shop.ApplicationServices.Services
             car.Price = dto.Price;
             car.Amount = dto.Amount;
             car.ProdusedAt = dto.ProdusedAt;
-            car.ModifedAt = dto.ModifedAt;
+            car.ModifiedAt = dto.ModifiedAt;
             car.CreatedAt = dto.CreatedAt;
             _file.ProcessUploadFile(dto, car);
 
@@ -86,7 +86,7 @@ namespace shop.ApplicationServices.Services
             car.Price = dto.Price;
             car.Amount = dto.Amount;
             car.ProdusedAt = dto.ProdusedAt;
-            car.ModifedAt = dto.ModifedAt;
+            car.ModifiedAt = dto.ModifiedAt;
             car.CreatedAt = dto.CreatedAt;
             _file.ProcessUploadFile(dto, car);
 

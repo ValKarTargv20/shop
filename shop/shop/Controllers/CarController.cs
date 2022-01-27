@@ -73,7 +73,7 @@ namespace shop.Controllers
                 Price = model.Price,
                 Amount = model.Amount,
                 ProdusedAt = model.ProdusedAt,
-                ModifedAt = model.ModifedAt,
+                ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
                 Files = model.Files,
                 ExistingFilePaths = model.ExistingFilePaths
@@ -119,7 +119,7 @@ namespace shop.Controllers
             model.Price = car.Price;
             model.Amount = car.Amount;
             model.ProdusedAt = car.ProdusedAt;
-            model.ModifedAt = car.ModifedAt;
+            model.ModifiedAt = car.ModifiedAt;
             model.CreatedAt = car.CreatedAt;
             model.ExistingFilePaths.AddRange(photos);
 
@@ -138,7 +138,7 @@ namespace shop.Controllers
                 Price = model.Price,
                 Amount = model.Amount,
                 ProdusedAt = model.ProdusedAt,
-                ModifedAt = model.ModifedAt,
+                ModifiedAt = model.ModifiedAt,
                 CreatedAt = model.CreatedAt,
                 ExistingFilePaths = model.ExistingFilePaths
                 .Select(x=> new ExistingFilePathDto
