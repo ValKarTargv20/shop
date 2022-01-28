@@ -43,7 +43,7 @@ namespace shop.Controllers
                 ProdusedAt=x.ProdusedAt,
                 });
 
-            return View();
+            return View(result);
         }
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
