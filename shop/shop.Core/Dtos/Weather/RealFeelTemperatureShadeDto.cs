@@ -1,4 +1,6 @@
-﻿namespace shop.Core.Dtos.Weather
+﻿using Newtonsoft.Json;
+
+namespace shop.Core.Dtos.Weather
 {
     public class RealFeelTemperatureShadeDto
     {
