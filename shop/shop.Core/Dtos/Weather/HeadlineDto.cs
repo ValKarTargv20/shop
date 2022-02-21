@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace shop.Models.Weather
+namespace shop.Dtos.Weather
 {
     public class HeadlineDto
     {

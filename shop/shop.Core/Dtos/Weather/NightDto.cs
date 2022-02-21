@@ -9,7 +9,6 @@ namespace shop.Core.Dtos.Weather
 
         [JsonProperty("IconPhrase")]
         public string IconPhrase { get; set; }
-
         public LocalSourseDto LocalSourse { get; set; }
 
         [JsonProperty("HasPrecipitation")]
