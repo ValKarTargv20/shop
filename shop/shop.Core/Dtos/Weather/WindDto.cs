@@ -2,7 +2,7 @@
 {
     public class WindDto
     {
-        public SpeedDto Speed { get; set; }
-        public DirectionDto Direction { get; set; }
+        public float speed { get; set; }
+        public float deg { get; set; }
     }
 }
