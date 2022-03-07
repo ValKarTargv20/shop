@@ -12,6 +12,6 @@ namespace shop.Core.ServiceInterface
         //string WeatherResponse(string city);
         //Task<WeatherDto> WeatherDetail(WeatherDto dto);
 
-        OpenWeatherResultDto GetForcast(string city);
+        Task<OpenWeatherResultDto> WeatherDetail(OpenWeatherResultDto dto);
     }
 }

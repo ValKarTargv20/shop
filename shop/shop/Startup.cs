@@ -27,10 +27,6 @@ namespace shop
             services.AddDbContext<ShopDbContext>(options =>
             options.UseSqlServer(_config["DefaultConnection"]));
 
-            services.AddScoped<IProductService, ProductServices>();
-            services.AddScoped<IFileServices, FileServices>();
-
-            services.AddScoped<ISpaceshipService, SpaceshipServices>();
             services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
 
         }
