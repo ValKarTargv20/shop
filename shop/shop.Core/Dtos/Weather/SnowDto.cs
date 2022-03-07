@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace shop.Models.Weather
 {
-    public class snow
+    public class SnowDto
     {
         public int h1 { get; set; }
 

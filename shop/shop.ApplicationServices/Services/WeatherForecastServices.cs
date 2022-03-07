@@ -7,72 +7,58 @@ using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using shop.Dtos.Weather;
+using shop.Dtos.ServiceInterface;
 
 namespace shop.ApplicationServices.Services
 {
     public class WeatherForecastServices : IWeatherForecastServices
 
     {
-        public WeatherResultDto GetResponse(string city)
+        public WeatherDto GetResponse(string city)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task<WeatherResultDto> WeatherDetail(WeatherResultDto dto)
+        public async Task<WeatherDto> WeatherDetail(WeatherDto dto)
         {
-            string apikey = "YjhxFOy76ijmCOWvahkPo2Z9lqpk9ot4"; //APi key
-            var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=YjhxFOy76ijmCOWvahkPo2Z9lqpk9ot4&language=en-us&details=false&metric=true";
+            //string apikey = "ba56ad4fa94b4d0ec8ecac5bb9967e0e"; //APi key
+            var url = $"http://api.openweathermap.org/geo/1.0/direct?q=Tallinn&limit=5&units=metric&appid=ba56ad4fa94b4d0ec8ecac5bb9967e0e";
 
             using (WebClient client = new WebClient())
             {
                 string json = client.DownloadString(url);
 
-                WeatherRootDto weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherRootDto>(json);
+                OpenWeatherRootDto weatherInfo = (new JavaScriptSerializer()).Deserialize<OpenWeatherRootDto>(json);
 
-                //Headline
-                dto.EffectiveDate = weatherInfo.Headline.EffectiveDate;
-                dto.EffectiveEpochDate = weatherInfo.Headline.EffectiveEpochDate;
-                dto.Severity = weatherInfo.Headline.Severity;
-                dto.Text = weatherInfo.Headline.Text;
-                dto.Category = weatherInfo.Headline.Category;
-                dto.EndDate = weatherInfo.Headline.EndDate;
-                dto.EndEpochDate = weatherInfo.Headline.EndEpochDate;
+                dto.name = weatherInfo.coord.name;
+                dto.main = weatherInfo.weather[0].main;
+                dto.description = weatherInfo.weather[0].description;
+                dto.icon = weatherInfo.weather[0].icon;
 
-                dto.MobileLink = weatherInfo.Headline.MobileLink;
-                dto.Link = weatherInfo.Headline.Link;
-                //DailyForecasts
-                //dto.Date = weatherInfo.DailyForecasts.Date;
-                //dto.EpochDate = weatherInfo.DailyForecasts.EpochDate;
-                //Temperature:
-                //Minimum
-                //MinimumDto minimumDto = new MinimumDto();
-                dto.TempMinValue = weatherInfo.DailyForecasts[0].Temperature.Minimum.Value;
-                dto.TempMinUnit = weatherInfo.DailyForecasts[0].Temperature.Minimum.Unit;
-                dto.TempMinUnitType = weatherInfo.DailyForecasts[0].Temperature.Minimum.UnitType;
-                //Maximum
-                //MaximumDto maximumDto = new MaximumDto();
-                dto.TempMaxValue = weatherInfo.DailyForecasts[0].Temperature.Maximum.Value;
-                dto.TempMaxUnit = weatherInfo.DailyForecasts[0].Temperature.Maximum.Unit;
-                dto.TempMaxUnitType = weatherInfo.DailyForecasts[0].Temperature.Maximum.UnitType;
-                //Day
-                //DayDto dayDto = new DayDto();
-                dto.DayIcon = weatherInfo.DailyForecasts[0].Day.Icon;
-                dto.DayIconPhrase = weatherInfo.DailyForecasts[0].Day.IconPhrase;
-                dto.DayHasPrecipitation = weatherInfo.DailyForecasts[0].Day.HasPrecipitation;
-                dto.DayPrecipitationType = weatherInfo.DailyForecasts[0].Day.PrecipitationType;
-                dto.DayPrecipitationIntensity = weatherInfo.DailyForecasts[0].Day.PrecipitationIntensity;
-                //Night
-                //NightDto nightDto = new NightDto();
-                dto.NightIcon = weatherInfo.DailyForecasts[0].Night.Icon;
-                dto.NightIconPhrase = weatherInfo.DailyForecasts[0].Night.IconPhrase;
-                dto.NightHasPrecipitation = weatherInfo.DailyForecasts[0].Night.HasPrecipitation;
-                dto.NightPrecipitationType = weatherInfo.DailyForecasts[0].Night.PrecipitationType;
-                dto.NightPrecipitationIntensity = weatherInfo.DailyForecasts[0].Night.PrecipitationIntensity;
+                dto.temp = weatherInfo.main.temp;
+                dto.feels_like = weatherInfo.main.feels_like;
+                dto.temp_min = weatherInfo.main.temp_min;
+                dto.temp_max = weatherInfo.main.temp_max;
+                dto.pressure = weatherInfo.main.pressure;
+                dto.humidity = weatherInfo.main.humidity;
+                dto.visibility = weatherInfo.visibility;
+
+                dto.speed = weatherInfo.wind.speed;
+                dto.deg = weatherInfo.wind.deg;
+
+                dto.all = weatherInfo.clouds.all;
+
+                dto.dt = weatherInfo.dt;
+
+                dto.type = weatherInfo.sys.type;
+                dto.id = weatherInfo.sys.id;
+                dto.message = weatherInfo.sys.message;
+                dto.country = weatherInfo.sys.country;
+                dto.sunrise = weatherInfo.sys.sunrise;
+                dto.sunset = weatherInfo.sys.sunset;
+                dto.timezone = weatherInfo.timezone;
 
                 var jsonString = new JavaScriptSerializer().Serialize(dto);
-
-                //return jsonString;
 
             }
             return dto;

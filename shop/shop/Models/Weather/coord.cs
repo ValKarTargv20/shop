@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace shop.Core.Dtos.Weather
 {
-    public class OpenWeatherRootDto
+    public class coord
     {
-        public CoordDto coord { get; set; }
-        public List<OpenDailyForecastDto> DailyForecasts { get; set; }
+        public float lon { get; set; }
+        public float lat { get; set; }
     }
 }

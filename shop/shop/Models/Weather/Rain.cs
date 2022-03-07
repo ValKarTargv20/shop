@@ -1,9 +1,15 @@
-﻿namespace shop.Models.Weather
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace shop.Models.Weather
 {
-    public class Rain
+    public class rain
     {
-        public double Value { get; set; }
-        public string Unit { get; set; }
-        public int UnitType { get; set; }
+        public int h1 { get ; set;}
+
+        public int h3 { get; set; }
+
     }
 }

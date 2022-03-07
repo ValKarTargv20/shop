@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace shop.Controllers
 {
-    public class WeatherController : Controller
+    public class OpenWeatherController : Controller
     {
         private readonly IWeatherForecastServices _weatherForecastServices;
 
-        public WeatherController
+        public OpenWeatherController
             (
                 IWeatherForecastServices weatherForecastServices
             )
@@ -43,19 +43,19 @@ namespace shop.Controllers
         [HttpGet]
         public IActionResult City(string city)
         {
-            WeatherResultDto dto = new WeatherResultDto();
+            WeatherDto dto = new WeatherDto();
             var weatherResponse = _weatherForecastServices.WeatherDetail(dto);
-            CityViewModel model = new CityViewModel();
+            OpenWeatherResultViewModel model = new OpenWeatherResultViewModel();
             
 
-            model.EffectiveDate = weatherResponse.Result.EffectiveDate;
-            model.EffectiveEpochDate = weatherResponse.Result.EffectiveEpochDate;
-            model.Severity = weatherResponse.Result.Severity;
-            model.Text = weatherResponse.Result.Text;
-            model.Category = weatherResponse.Result.Category;
-            model.EndDate = weatherResponse.Result.EndDate;
-            model.EndEpochDate = weatherResponse.Result.EndEpochDate;
-            model.MobileLink = weatherResponse.Result.MobileLink;
+            model.name = weatherResponse.coord.name;
+            model.main = weatherResponse.weather[0].main;
+            model.description = weatherResponse.weather[0].description;
+            model.icon = weatherResponse.weather[0].icon;
+            model.temp = weatherResponse.main.temp;
+            model.feels_like = weatherResponse.main.feels_like;
+            model.temp_min = weatherResponse.main.temp_min;
+            model.temp_max = weatherResponse.main.temp_max;
             model.Link = weatherResponse.Result.Link;
             //DailyForecasts
             model.Date = dto.Date;

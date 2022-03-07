@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace shop.Core.Dtos.Weather
 {
-    public class weatherDto
+    public class weather
     {
         public int id { get; set; }
         public string main { get; set; }

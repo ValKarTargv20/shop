@@ -1,8 +1,9 @@
-﻿namespace shop.Models.Weather
+﻿namespace shop.Core.Dtos.Weather
 {
-    public class Wind
+    public class wind
     {
-        public Speed Speed { get; set; }
-        public Direction Direction { get; set; }
+        public float speed { get; set; }
+        public float deg { get; set; }
+        public float gust { get; set; }
     }
 }
