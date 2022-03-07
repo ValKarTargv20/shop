@@ -45,7 +45,7 @@ namespace shop.Controllers
         {
             WeatherDto dto = new WeatherDto();
             var weatherResponse = _weatherForecastServices.WeatherDetail(dto);
-            OpenWeatherResultViewModel model = new OpenWeatherResultViewModel();
+            OpenWeatherResultDto model = new OpenWeatherResultDto();
             
 
             model.name = weatherResponse.coord.name;

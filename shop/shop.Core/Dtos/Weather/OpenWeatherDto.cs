@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace shop.Core.Dtos.Weather
 {
-    public class WeatherDto
+    public class OpenWeatherDto
     {
         public string @base { get; set; }
         public CloudsDto clouds { get; set; }

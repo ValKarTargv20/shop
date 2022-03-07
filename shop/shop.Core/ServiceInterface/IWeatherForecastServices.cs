@@ -10,8 +10,8 @@ namespace shop.Core.ServiceInterface
     public interface IWeatherForecastServices
     {
         //string WeatherResponse(string city);
-        Task<WeatherDto> WeatherDetail(WeatherDto dto);
+        //Task<WeatherDto> WeatherDetail(WeatherDto dto);
 
-        //WeatherResultDto GetForcast(string city);
+        OpenWeatherResultDto GetForcast(string city);
     }
 }
