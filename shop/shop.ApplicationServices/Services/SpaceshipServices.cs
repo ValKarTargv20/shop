@@ -57,7 +57,7 @@ namespace shop.ApplicationServices.Services
             return spaceshipId;
         }
 
-        public async Task<Spaceship> Edit(Guid id)
+        public async Task<Spaceship> GetAsync(Guid id)
         {
             var result = await _context.Spaceship
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -79,7 +79,7 @@ namespace shop.ApplicationServices.Services
             spaceship.Crew = dto.Crew;
             spaceship.ConstructedAt = dto.ConstructedAt;
             spaceship.CreatedAt = dto.CreatedAt;
-            spaceship.ModifiedAt = dto.ModifiedAt;
+            spaceship.ModifiedAt = DateTime.Now;
 
             if (dto.Files != null)
             {
